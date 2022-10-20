@@ -11,7 +11,7 @@ function App() {
         <h1> Gaulex app. Proyecto II.
         
         </h1>
-      <menu />
+      <menu title="GAULEX" />
       <list />
 
       </header>
