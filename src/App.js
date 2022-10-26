@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import menu from './menu';
-import list from './list';
+import menu from './Menu.js';
+import list from './List';
 
 function App() {
   return (
@@ -10,9 +10,9 @@ function App() {
       <menu title="GAULEX" />
       <list />
 
-      </header>
+    
     </div>
-  );
+  )
 }
 
 export default App;
