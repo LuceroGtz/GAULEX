@@ -1,4 +1,5 @@
 import React, {useState, useRef} from "react";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import { v4 as uuidv4 } from "uuid";
 import {TodoList} from './TodoList';
 
@@ -10,23 +11,34 @@ import {TodoList} from './TodoList';
         ]);
         const todoTaskRef = useRef ();
 
+        const toggleTodo = (id => {
+            const newTodos = [... todos];
+            const todo= newTodos.find ((todo) => todo.id == id);
+            todo.completed = !todo.completed;
+            setTodos (newTodos);
+    });
+    }
+
         const handleTodoAdd = ()=> {
         const task = todoTaskRef.current.value;
         if (task == "") return;
 
         setTodos((prevTodos) => {
-            return [... prevTodos, [id = uuidv4, task, completed =false]]
+            return [... prevTodos, {id: uuidv4(), task, completed: false}];
         });
 
         todoTaskRef.current.value = null;
 
         }
         
-        return (
+    
+        return
+        {
         <React.Fragment>
-            <TodoList todos= {todos} /> 
-            <input ref= {todoTaskRef} type="text" placeholder="Nuvo Proyectyo" />
+            <TodoList todos= {todos}  toggleTodo={toggleTodo} /> 
+         <input ref= {todoTaskRef} type="text" placeholder="Nuvo Proyectyo" />
             <button onClick={handleTodoAdd }>+</button>
         </React.Fragment>
-        )
         }
+        
+        
