@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, Fragment} from "react";
 import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import { v4 as uuidv4 } from "uuid";
 import {TodoList} from './TodoList';
@@ -6,6 +6,10 @@ import {TodoList} from './TodoList';
 
 
     export function App() {
+        <div>
+            PROYECTO GAULEX. 
+            equipo Esspreso.
+        </div>
         const [todos, setTodos]= useState([
             {id: 1, task: "Proyecto 1", completed: false},
         ]);
@@ -17,9 +21,9 @@ import {TodoList} from './TodoList';
             todo.completed = !todo.completed;
             setTodos (newTodos);
     });
-    }
+    
 
-        const handleTodoAdd = ()=> {
+        const handleTodoAdd = (event)=> {
         const task = todoTaskRef.current.value;
         if (task == "") return;
 
@@ -28,17 +32,18 @@ import {TodoList} from './TodoList';
         });
 
         todoTaskRef.current.value = null;
+    }
 
-        }
-        
-    
-        return
-        {
-        <React.Fragment>
-            <TodoList todos= {todos}  toggleTodo={toggleTodo} /> 
-         <input ref= {todoTaskRef} type="text" placeholder="Nuvo Proyectyo" />
-            <button onClick={handleTodoAdd }>+</button>
-        </React.Fragment>
-        }
-        
-        
+    const handleClearAll = () => {
+        const newTodos = todos.filter((todo) => !todo.completed);
+        setTodos(newTodos);
+      };
+        return (
+            <Fragment>
+                <TodoList todos= {todos}  toggleTodo={toggleTodo} /> 
+             <input ref= {todoTaskRef} type="text" placeholder="Nuvo Proyectyo" />
+                <button onClick={handleTodoAdd }>+ añadir</button>
+                <button onClick={handleClearAll }>- eliminar</button>
+            </Fragment>
+        );
+    }
